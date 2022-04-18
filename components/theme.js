@@ -11,10 +11,13 @@ const styles = {
             h: '100vh',
         },
         //why it is not working idk but yeah
-        h2: {
+        "h3": {
             fontSize: '2px',
         },
-        h1: {
+        "h2": {
+            fontSize: '2px',
+        },
+        "h1": {
             fontSize: '5px',
         },
         p: {
@@ -36,10 +39,28 @@ const fonts = {
     body: 'Comfortaa',
 }
 
+const overrides = extendTheme({
+    styles: {
+        global: (props) => ({
+            h2: {
+                fontSize: '2px',
+            }
+        }),
+    },
+})
+
 const theme = extendTheme({
     styles,
     config,
-    fonts
+    fonts,
+    overrides,
+    components: {
+        Button: {
+            baseStyle: {
+                fontWeight: 'normal',
+            }
+        },
+    }
 })
 
 export default theme
