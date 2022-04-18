@@ -1,4 +1,4 @@
-import { extendTheme } from '@chakra-ui/react'
+import { extendTheme, theme as baseTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
 const styles = {
@@ -10,15 +10,14 @@ const styles = {
         html: {
             h: '100vh',
         },
-        //why it is not working idk but yeah
-        "h3": {
-            fontSize: '2px',
+        h3: {
+            fontSize: `baseTheme.fontSizes.sm`
         },
-        "h2": {
-            fontSize: '2px',
+        h2: {
+            fontSize: baseTheme.fontSizes.sm
         },
-        "h1": {
-            fontSize: '5px',
+        h1: {
+            fontSize: '2px'
         },
         p: {
             fontSize: ['14px', '15px', '16px'],
@@ -39,28 +38,10 @@ const fonts = {
     body: 'Comfortaa',
 }
 
-const overrides = extendTheme({
-    styles: {
-        global: (props) => ({
-            h2: {
-                fontSize: '2px',
-            }
-        }),
-    },
-})
-
 const theme = extendTheme({
     styles,
     config,
     fonts,
-    overrides,
-    components: {
-        Button: {
-            baseStyle: {
-                fontWeight: 'normal',
-            }
-        },
-    }
 })
 
 export default theme

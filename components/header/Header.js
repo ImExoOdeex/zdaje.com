@@ -26,7 +26,7 @@ function Header() {
                             <Text fontWeight={'normal'} fontSize={{ base: '12px', md: '14px' }} color={tealColor} justifyContent={'flex-start'} textAlign={'left'}>Zdajesz!</Text>
                         </Flex></Link></Heading></Flex>
                 <Flex alignItems={'center'} mr='40px' display={{ base: 'flex', sm: 'none' }}>
-                    <IconButton onClick={() => router.back()} fontSize='20px' aria-label='Search database' icon={<ArrowBackIcon />} mr={2} _hover='none' bg='transparent' />
+                    {/* <IconButton onClick={() => router.back()} fontSize='20px' aria-label='Search database' icon={<ArrowBackIcon />} mr={2} _hover='none' bg='transparent' /> */}
                     <Link href={'/'}>
                         <AiOutlineHome size={'25px'} />
                     </Link>
