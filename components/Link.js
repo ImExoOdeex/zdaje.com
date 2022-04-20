@@ -3,10 +3,10 @@ import {
     Link as ChakraLink,
 } from '@chakra-ui/react';
 
-const Link = ({ href, children, ...rest }) => {
+const Link = ({ href, children, ...props }) => {
     return (
-        <NextLink scroll={false} href={href} passHref>
-            <ChakraLink {...rest}>
+        <NextLink scroll={false} href={href} passHref style={{ hover: "none" }}>
+            <ChakraLink {...props}>
                 {children}
             </ChakraLink>
         </NextLink>

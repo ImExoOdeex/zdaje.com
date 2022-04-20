@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormControl, Input, Tooltip, chakra, Text, SimpleGrid, FormLabel, useColorModeValue, Heading, Grid, GridItem } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, Input, Tooltip, chakra, Text, useToast, FormLabel, useColorModeValue, Heading, Grid, GridItem, Wrap, WrapItem } from '@chakra-ui/react'
 import { React, useState, useEffect } from 'react'
 import PhoneBottom from './PhoneBottom'
 import { v4 as uuidv4 } from "uuid";
@@ -11,14 +11,26 @@ function Zwykla() {
     const [average, setAverage] = useState(0);
     const [newGrade, setNewGrade] = useState();
 
+    const toast = useToast()
+
     function addGrade(e) {
+        // subtle, solid
         e.preventDefault();
-        setNewGrade("");
-        if (newGrade != '') {
-            setGrades((grades) => [...grades, { id: uuidv4(), value: newGrade }]);
+
+        if (!newGrade) {
+            toast({
+                position: 'top',
+                variant: 'solid',
+                title: 'Błąd',
+                description: "Podaj poprawną ocenę",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+            return;
         }
-        // const field = e.target.children[0].children[0];
-        // field.focus();
+        setGrades((grades) => [...grades, { id: uuidv4(), value: newGrade }]);
+        setNewGrade("");
     };
 
     const deleteGrade = (index) => {
@@ -45,34 +57,37 @@ function Zwykla() {
 
     function Char({ children }) {
         return (
-            <chakra.span letterSpacing={'10px'}>{children}</chakra.span>
+            <chakra.span borderBottom={'2px solid'} borderRadius='1.5' borderColor='pink.500' letterSpacing={'0px'}>{children}</chakra.span>
         )
     }
 
+    const wrapW = ['100%', '100%', 'calc(50% - 48px)'];
+
+    const averageColor = average >= 1.75 ? 'green.500' : 'red.500';
+
     return (
         <>
-            <Flex w='100%' m='auto' px='5' h='auto' flexDir={'column'}>
+            <Flex w='100%' mx={'auto'} mt={['20px', '20px', '150px']} px='5' h='auto' flexDir={'column'}>
 
-                <Grid as={motion.div} layout templateRows='repeat(2, 1fr)'
-                    templateColumns='repeat(2, 1fr)'
-                    gap={[5, 5, 12]} display={['flex', 'flex', 'grid']} flexDir='column'>
+                <Wrap spacing={[5, 5, 12]} as={motion.div} display={['flex', 'flex', 'grid']} >
                     <AnimateSharedLayout>
-                        <HelpCard>
-                            <Heading letterSpacing={'1px'} fontSize={[17, 20, 25]}>Jak dodać ocenę z <Char> '+'</Char> lub <Char>'-'</Char> ?</Heading>
-                            <Text m={[0.5, 1, 2]}>3+ to jest 3.50, a 3- to 2.75. Czyli dwa z plusem to 2.50, a z minusem 1.75</Text>
+                        <HelpCard as={motion.div} layout>
+                            <Heading as={motion.h2} layout letterSpacing={'1px'} fontSize={[17, 20, 25]}>Jak dodać ocenę z <Char> '  +  '</Char> lub <Char>'  -  '</Char> ?</Heading>
+                            <Text as={motion.p} layout m={[0.5, 1, 2]} mt={[3.50, 2, 2]}>3+ to jest 3.50, a 3- to 2.75. Czyli dwa z plusem to 2.50, a z minusem 1.75</Text>
                         </HelpCard>
-                        <GridItem as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
-                            justifyContent={'space-around'} alignItems='center'>
+                        <WrapItem display={'block'} w={wrapW} as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
+                            justifyContent={'space-around'} alignItems='center' flexDir={'column'}>
 
                             <Text as={motion.p} layout fontSize={'13px'}>Tutaj wyświetlą się twoje oceny: </Text>
                             <Text as={motion.p} layout fontSize={'12px'}>Kliknij na ocenę, aby ją usunąć</Text>
-                            <Flex as={motion.div} layout minH={'40px'}><Text fontSize={'25px'} as={motion.p} >
+                            <Flex as={motion.div} minH={'40px'}><Text fontSize={'25px'} as={motion.p}>
 
                                 {grades.map((g, i) => {
                                     return (
                                         <>
-                                            <Tooltip as={motion.div} key={g.id} hasArrow label={"usuń: " + g.value}>
-                                                <Box as={motion.span} whileHover={{ opacity: 0.8 }} whileTap={() => deleteGrade(i)} cursor='pointer'>
+                                            <Tooltip key={g.id} hasArrow label={"usuń: " + g.value}>
+                                                <Box as={motion.span} initial={{ opacity: 0 }} exit={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.1 } }}
+                                                    whileHover={{ opacity: 0.8 }} whileTap={() => deleteGrade(i)} cursor='pointer'>
                                                     {g.value}
                                                 </Box>
                                             </Tooltip>
@@ -93,38 +108,40 @@ function Zwykla() {
                                             autoFocus={false}
                                             placeholder='6'
                                             type={'number'}
-                                            w={'40%'}
+                                            w={['100%', '75%', '40%']}
                                             id='ocena'
                                             value={newGrade}
                                             onChange={(e) => {
                                                 setNewGrade(e.target.value);
                                             }}
                                         />
-                                        <Button as={motion.button} whileTap={{ scale: 0.6 }} _focus="none" whileHover={{ x: 10, transition: { duration: 0.075 } }} _hover='none' ml={'2'} type="submit" bg={'transparent'} fontWeight='normal'>Dodaj</Button>
+                                        <Button as={motion.button} whileTap={{ scale: 0.8, bg: 'transparent' }} _focus="none"
+                                            _hover='none' ml={'2'} type="submit" bg={'transparent'} fontWeight='normal'>Dodaj</Button>
                                     </Flex>
                                 </Flex>
                             </form>
-                        </GridItem>
-                        <GridItem as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
-                            justifyContent={'space-around'} alignItems='center'>
+                        </WrapItem>
+                        <WrapItem display={'block'} w={wrapW} as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
+                            justifyContent={'space-between'} alignItems='end'>
                             <Text as={motion.p} layout fontSize={'13px'}>Średnia Twoich ocen: </Text>
                             <Heading as={motion.h2} layout textAlign={'center'} ><chakra.span transition={'0.5s'} as={'output'} fontSize='72px'
-                                color={average === "???" ? 'blue.500' : null || average >= 1.75 ? 'green.500' : 'red.500'}>
+                                color={grades.length == 0 ? tealColor : averageColor}>
                                 {average ? average.toFixed(2) : "???"}</chakra.span></Heading>
 
                             <AnimatePresence exitBeforeEnter>
                                 {isVisible && (
-                                    <Flex as={motion.div} layout m='auto' exit={{ opacity: 0 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
+                                    <Flex as={motion.div} layout m='auto' exit={{ opacity: 0, y: 5 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.2 }} mt='auto'>
                                         <Button w='75%' mx={'auto'} _focus={'none'} onClick={reset} bg='transparent' fontWeight={'normal'} _hover={{ bg: 'rgba(252, 129, 129,0.15)' }}>
                                             <Text color={'red.400'}>Resetuj</Text></Button>
                                     </Flex>
                                 )}
                             </AnimatePresence>
-                        </GridItem>
+                        </WrapItem>
                     </AnimateSharedLayout>
-                </Grid>
+                </Wrap>
             </Flex>
-            <PhoneBottom srednia={average ? average.toFixed(2) : "???"} />
+            <PhoneBottom srednia={average ? average.toFixed(2) : "???"} gradesLenght={grades.length} />
         </>
     )
 }

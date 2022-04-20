@@ -26,11 +26,11 @@ function Start() {
                 <b> 2.50 * 4 / 1 * 4</b>, czyli 10 / 4 to twoja średnia jest 2.50. </Text>
             <Heading>Jaką masz średnią?</Heading>
             <UnorderedList listStyleType={'none'} display='inline-flex' m={'auto'}>
-                <Li mr='4' href={'wazona'}><SmallAddIcon /> Ważoną</Li>
-                <Li href={'zwykla'}><SmallAddIcon /> Arytmetyczna</Li>
+                <Li mr='4' href={'wazona'}><SmallAddIcon />Ważona</Li>
+                <Li href={'zwykla'}><SmallAddIcon />Arytmetyczna</Li>
             </UnorderedList>
             <Heading mt='5'>Jak obliczyć średnią bez kalkulatora?</Heading>
-            <Text>Jeśli chcesz obliczać swoją średnią nie mając dostępu do internetu zapoznaj się z naszym <Link href={'jak'} color={tealColor}>poradnikiem</Link>.</Text>
+            <Text>Jeśli chcesz obliczać swoją średnią nie mając dostępu do internetu zapoznaj się z naszym <Link href={'jak'} variant={'link'} color={tealColor}>poradnikiem</Link>.</Text>
 
         </Flex>
     )
