@@ -11,7 +11,7 @@ function Wazona() {
     const [grades, setGrades] = useState([]);
     const [average, setAverage] = useState(0);
     const [newGrade, setNewGrade] = useState();
-    const [weights, setWeights] = useState([{ id: uuidv4(), value: 1 }]);
+    const [weights, setWeights] = useState([]);
 
     const toast = useToast()
 
@@ -121,7 +121,7 @@ function Wazona() {
                                         <Heading as={'h2'}>{w}</Heading>
                                         <IconButton bg={'transparent'} icon={<SmallCloseIcon />} onClick={deleteWeight}></IconButton>
                                     </Flex>
-                                    <form noValidate onSubmit={addGrade}>
+                                    <form noValidate>
                                         <Box h={'100%'} rounded='sm' w='4px' bg={'teal.200'}></Box>
                                         <Flex as={motion.div} layout flexDir={'column'}>
                                             <FormLabel for='ocena' fontSize={'12px'} mb='0'>Dodaj ocenę: </FormLabel>
