@@ -6,6 +6,7 @@ export default class Document extends NextDocument {
     render() {
         return (
             <Html lang='pl'>
+                <link rel="icon" href="zdajelogo.png" />
                 <Head />
                 <body>
                     {/* 👇 Here's the script */}

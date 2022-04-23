@@ -61,7 +61,7 @@ function Zwykla() {
         )
     }
 
-    const wrapW = ['100%', '100%', 'calc(50% - 48px)'];
+    const wrapW = ['100%', 'calc(50% - 48px)', 'calc(50% - 48px)'];
 
     const averageColor = average >= 1.75 ? 'green.500' : 'red.500';
 
@@ -69,7 +69,7 @@ function Zwykla() {
         <>
             <Flex w='100%' mx={'auto'} mt={['20px', '20px', '150px']} px='5' h='auto' flexDir={'column'}>
 
-                <Wrap spacing={[5, 5, 12]} as={motion.div} display={['flex', 'flex', 'grid']} >
+                <Wrap spacing={[5, 5, 12]} as={motion.div}>
                     <AnimateSharedLayout>
                         <HelpCard as={motion.div} layout>
                             <Heading as={motion.h2} layout letterSpacing={'1px'} fontSize={[17, 20, 25]}>Jak dodać ocenę z <Char> '  +  '</Char> lub <Char>'  -  '</Char> ?</Heading>
