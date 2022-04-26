@@ -1,9 +1,12 @@
+import { Head } from "next/document"
 import Start from "../components/inside/Start"
 
 
 function Index() {
   return (
-    <Start />
+    <>
+      <Start />
+    </>
   )
 }
 

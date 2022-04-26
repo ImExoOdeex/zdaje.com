@@ -19,14 +19,15 @@ function Layout({ children }) {
     return (
         <Flex flexDir={'column'}>
             <Header />
-            <Flex flexDir={'row'} w='100%' borderRadius={'md'} borderColor='teal.500' borderWidth={w}>
+            <AnimateSharedLayout><Flex as={'main'} flexDir={'row'} w='100%' borderRadius={'md'} borderColor='teal.500' borderWidth={w}>
                 <Side />
-                <Flex borderRadius={'md'} borderColor='pink.500' borderWidth={w} flexDir='column' w={{ base: '100%', md: '70%' }} minH={'calc(100vh - 260px)'}>
+                <Flex as={'section'} borderRadius={'md'} borderColor='pink.500' borderWidth={w} flexDir='column' w={{ base: '100%', md: '70%' }} minH={'calc(100vh - 260px)'}>
                     {children}
                 </Flex>
                 <Side />
             </Flex>
-            <Footer />
+                <Footer />
+            </AnimateSharedLayout>
         </Flex>
     )
 }

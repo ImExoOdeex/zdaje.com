@@ -19,8 +19,8 @@ function Header() {
 
 
     return (
-        <Flex h={'60px'} bg='transparent' w='100%'>
-            <Flex m={'auto'} w='1300px' bg={'tansparent'} h='100%' justifyContent={'space-between'}>
+        <Flex as={'header'} h={'60px'} bg='transparent' w='100%'>
+            <Flex as={'nav'} m={'auto'} w='1300px' bg={'tansparent'} h='100%' justifyContent={'space-between'}>
                 <Flex alignItems={'center'} ml={{ base: '20px', md: '40px' }} flexDir='row'><Heading>
                     <Link _hover={'none'} href={'/'} display='inline-flex'>Zdaje
                         <Flex ml={1} flexDir={'column'} justifyContent={'center'} textAlign={'left'}>
@@ -35,12 +35,12 @@ function Header() {
                 </Flex>
                 <Flex alignItems={'center'} mr='40px' display={{ base: 'none', sm: 'flex' }}>
                     <UnorderedList listStyleType={'none'} display='inline-flex'>
-                        <ListItem mr={'5'}><Link href={'/'} _focus='none' _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
+                        <ListItem mr={'5'}><Link href={'/'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
                             borderBottom={router.pathname == '/' ? "2px solid" : "0px solid"}>Start</Link></ListItem>
                         <ListItem opacity={0.8}>Średnia: </ListItem>
-                        <ListItem ml={'20px'}><Link _focus='none' href={'zwykla'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
+                        <ListItem ml={'20px'}><Link href={'zwykla'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
                             borderBottom={router.pathname == '/zwykla' ? "2px solid" : "0px solid"}>Zwykła</Link></ListItem>
-                        <ListItem ml={'20px'}><Link _focus='none' href={'wazona'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
+                        <ListItem ml={'20px'}><Link href={'wazona'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
                             borderBottom={router.pathname == '/wazona' ? "2px solid" : "0px solid"}>Ważona</Link></ListItem>
                     </UnorderedList>
                     <Button _focus={'none'} as={motion.button} whileHover={{ rotate: colorMode === "dark" ? 10 : -10, transition: { duration: 0.05 } }} p='2' px='3' rounded='md' ml={'10px'}

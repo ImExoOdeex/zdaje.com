@@ -7,9 +7,9 @@ export default class Document extends NextDocument {
         return (
             <Html lang='pl'>
                 <link rel="icon" href="zdajelogo.png" />
+                <title>Start | Zdaje.com</title>
                 <Head />
                 <body>
-                    {/* 👇 Here's the script */}
                     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
                     <Main />
                     <NextScript />

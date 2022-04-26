@@ -61,7 +61,7 @@ function Zwykla() {
         )
     }
 
-    const wrapW = ['100%', 'calc(50% - 48px)', 'calc(50% - 48px)'];
+    const wrapW = ['100%', 'calc(50% - 20px)', 'calc(50% - 48px)'];
 
     const averageColor = average >= 1.75 ? 'green.500' : 'red.500';
 
@@ -71,7 +71,7 @@ function Zwykla() {
 
                 <Wrap spacing={[5, 5, 12]} as={motion.div}>
                     <AnimateSharedLayout>
-                        <HelpCard as={motion.div} layout>
+                        <HelpCard>
                             <Heading as={motion.h2} layout letterSpacing={'1px'} fontSize={[17, 20, 25]}>Jak dodać ocenę z <Char> '  +  '</Char> lub <Char>'  -  '</Char> ?</Heading>
                             <Text as={motion.p} layout m={[0.5, 1, 2]} mt={[3.50, 2, 2]}>3+ to jest 3.50, a 3- to 2.75. Czyli dwa z plusem to 2.50, a z minusem 1.75</Text>
                         </HelpCard>

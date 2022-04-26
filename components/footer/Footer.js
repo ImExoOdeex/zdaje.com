@@ -24,7 +24,7 @@ function Footer() {
     var src1 = colorMode === 'dark' ? 'github-white.png' : 'github-black.png'
 
     return (
-        <Flex as={'footer'} w='100%' h={'auto'} minH='200px' mt='auto'>
+        <Flex as={motion.footer} layout w='100%' h={'auto'} minH='200px' mt='auto'>
             <Flex m={'auto'} w={'1000px'}>
                 <SimpleGrid w={'100%'} h={'100%'} minChildWidth='200px' spacingX='40px' mb={{ base: '70px', sm: '0px' }} >
                     <Box w={{ base: '', sm: '100%' }} m={{ base: 4, md: 8 }} flexDir='column'>
