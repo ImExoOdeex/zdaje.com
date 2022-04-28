@@ -1,4 +1,4 @@
-import { Flex, Heading, ListItem, UnorderedList, Button, useColorMode, useColorModeValue, chakra, Text, IconButton, color } from '@chakra-ui/react'
+import { Flex, Heading, ListItem, UnorderedList, Button, useColorMode, useColorModeValue, chakra, Text, IconButton, color, Image } from '@chakra-ui/react'
 import React from 'react'
 import Link from '../Link'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
@@ -29,7 +29,7 @@ function Header() {
                         </Flex></Link></Heading></Flex>
                 <Flex alignItems={'center'} mr='40px' display={{ base: 'flex', sm: 'none' }}>
                     {/* <IconButton onClick={() => router.back()} fontSize='20px' aria-label='Search database' icon={<ArrowBackIcon />} mr={2} _hover='none' bg='transparent' /> */}
-                    <Link href={'/'} _focus='none'>
+                    <Link href={'/'}>
                         <AiOutlineHome size={'25px'} />
                     </Link>
                 </Flex>
@@ -43,7 +43,7 @@ function Header() {
                         <ListItem ml={'20px'}><Link href={'wazona'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
                             borderBottom={router.pathname == '/wazona' ? "2px solid" : "0px solid"}>Ważona</Link></ListItem>
                     </UnorderedList>
-                    <Button _focus={'none'} as={motion.button} whileHover={{ rotate: colorMode === "dark" ? 10 : -10, transition: { duration: 0.05 } }} p='2' px='3' rounded='md' ml={'10px'}
+                    <Button as={motion.button} whileHover={{ rotate: colorMode === "dark" ? 10 : -10, transition: { duration: 0.05 } }} p='2' px='3' rounded='md' ml={'10px'}
                         _hover={{ bg: colorMode === 'dark' ? 'purple.500' : 'orange.200' }} bg={'transparent'} data-splitbee-event="theme" onClick={toggleColorMode} aria-label="Justify">
                         {colorMode === 'dark' ?
                             <MoonIcon />

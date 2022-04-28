@@ -1,17 +1,19 @@
 import { React, useState, useEffect } from 'react'
-import { Box, Button, Flex, Input, Tooltip, chakra, Text, useToast, FormLabel, useColorModeValue, Heading, WrapItem, Wrap, IconButton, UnorderedList } from '@chakra-ui/react'
+import { Box, Button, Flex, Input, Tooltip, chakra, Text, useToast, useColorModeValue, Heading, WrapItem, Wrap, useDisclosure, Collapse, transform } from '@chakra-ui/react'
 import PhoneBottom from './PhoneBottom'
-import { v4 as uuidv4 } from "uuid";
-import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
-import HelpCard from './HelpCard';
+import { motion, AnimateSharedLayout } from 'framer-motion';
+import { HelpCard, AverageItem } from './UtilItems';
 import { useCookies } from 'react-cookie';
-import { SmallCloseIcon } from '@chakra-ui/icons';
+import { AdsUpBox } from './ads/AdsBoxes';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
+// only card for grades // not nesesarly for weights problem
 function GradesCard(props) {
     const wrapW = ['100%', 'calc(50% - 20px)', 'calc(50% - 48px)', 'calc(50% - 48px)', 'calc(33.333% - 48px)'];
     const key = props.cardKey || 0;
     const bg = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
     const tealColor = useColorModeValue('teal.600', 'teal.200');
+    const toast = useToast();
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -21,12 +23,19 @@ function GradesCard(props) {
         field.focus();
 
         if (!value) {
-            alert("Nie wpisałeś oceny");
+            toast({
+                position: 'top',
+                variant: 'solid',
+                title: 'Błąd',
+                description: "Podaj poprawną ocenę",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
             return;
         }
         props.onSubmit(Number(value));
     }
-
     const colors = [
         'gray.500',
         'red.500',
@@ -38,7 +47,11 @@ function GradesCard(props) {
         'purple.500',
         'purple.900',
     ]
-
+    const borderColor = useColorModeValue('rgba(255,255,255, 0.1)', 'rgba(0,0,0, 0.1)');
+    const grades = [
+        1, 2, 3, 4, 5, 6
+    ]
+    var grade = grades[Math.floor(Math.random() * grades.length)];
     return (
         <WrapItem WrapItem display={'block'} w={wrapW} as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
             justifyContent={'space-between'} alignItems='end'>
@@ -62,8 +75,10 @@ function GradesCard(props) {
             <Text as={motion.p} layout mt={0}>Podaj swoje oceny:</Text>
             <form onSubmit={handleSubmit} noValidate>
                 <Flex as={motion.div} layout>
-                    <Input as={motion.input} layout type="number" placeholder="5" id={"grades" + key} className="grades__input text-field__input" />
-                    <Button as={motion.button} layout whileTap={{ scale: 0.8, bg: 'transparent' }} _focus="none"
+                    <Input _focus={{ borderRadius: 'md', border: '2px solid', borderColor: 'pink.300' }}
+                        border={0} borderBottom='1px' rounded={'none'} borderColor={borderColor}
+                        as={motion.input} layout type="number" placeholder={grade} id={"grades" + key} />
+                    <Button as={motion.button} layout whileTap={{ scale: 0.8, bg: 'transparent' }}
                         _hover='none' ml={'2'} type="submit" bg={'transparent'} fontWeight='normal'>Dodaj</Button>
                 </Flex>
             </form>
@@ -72,42 +87,8 @@ function GradesCard(props) {
     );
 }
 
-function WeightsCard(props) {
-    function handleSubmit(event) {
-        event.preventDefault();
-        const input = event.target.children[0].children[0];
-        const value = input.value;
-        input.value = '';
-        let weights = value.split(',');
-        weights = weights.map((weight) => weight.trim());
-        weights = weights.filter((weight) => weight && !isNaN(weight));
-        weights = weights.map((weight) => Number(weight));
-
-        if (weights.length === 0) {
-            alert("Nie wpisałeś wag");
-            return;
-        }
-        props.onSubmit(weights);
-    }
-    const bg = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
-    const tealColor = useColorModeValue('teal.600', 'teal.200');
-
-    return (
-        <WrapItem display={'block'} w={'100%'} as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
-            justifyContent={'space-between'} alignItems='end'>
-            <Text>Zanim będziesz mógł obliczyć swoją średnią musisz podać nam wagi ocen używane w&nbsp;twojej szkole. Wypisz je po przecinku pamiętając, że ułamki dziesiętne (np. 0.6) zapisuje się za pomocą kropki. Po pierwszym razie kalkulator zapamięta wagi na danym urządzeniu.</Text>
-            <form onSubmit={handleSubmit} noValidate>
-                <Flex mt={5} flexDir={'row'}>
-                    <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
-                    <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
-                </Flex>
-            </form>
-        </WrapItem>
-    );
-}
-
 function useSavedWeights() {
-    const cookieName = 'avgCalcData';
+    const cookieName = 'weights';
     const [weights, setWeights] = useState();
     const [cookies, setCookie] = useCookies([cookieName]);
 
@@ -139,9 +120,8 @@ function Wazona() {
     const [weights, setWeights] = useSavedWeights();
     const [average, setAverage] = useState();
 
-    function handleWeightsSubmit(weights) {
-        setWeights(weights);
-    }
+    const [isWeightsVisible, setIsWeightsVisible] = useState(true);
+
 
     useEffect(() => {
         if (!weights) return;
@@ -152,7 +132,7 @@ function Wazona() {
 
     useEffect(() => {
         setVisible(average ? true : false);
-        console.log(average)
+        setIsWeightsVisible(!weights ? false : true);
     })
 
     useEffect(() => {
@@ -190,30 +170,72 @@ function Wazona() {
         setGrades(newGrades);
         setAverage(null);
     }
+    function handleWeightsSubmit(event) {
+        event.preventDefault();
+        const input = event.target.children[0].children[0];
+        const value = input.value;
+        input.value = '';
+        let weights = value.split(',');
+        weights = weights.map((weight) => weight.trim());
+        weights = weights.filter((weight) => weight && !isNaN(weight));
+        weights = weights.map((weight) => Number(weight));
 
-    function isAverage() {
-        return average || average === 0;
+        if (weights.length === 0) {
+            toast({
+                position: 'top',
+                variant: 'solid',
+                title: 'Błąd',
+                description: "Podaj poprawne wagi",
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+            })
+            return;
+        }
+        setWeights(weights);
     }
-
     const [isVisible, setVisible] = useState(false);
-
-    function Char({ children }) {
-        return (
-            <chakra.span letterSpacing={'0px'}>{children}</chakra.span>
-        )
-    }
     const averageColor = average >= 1.75 ? 'green.500' : 'red.500';
+    const { isOpen, onToggle } = useDisclosure()
     return (
         <>
-            <Flex w='100%' mx={'auto'} mt={['20px', '20px', '150px']} px='5' h='auto' flexDir={'column'}>
+            <Flex w='100%' mx={'auto'} px='5' h='auto' flexDir={'column'} mb={20}>
+                <AdsUpBox>
+                </AdsUpBox>
                 <Wrap spacing={[5, 5, 12]} as={motion.div} >
-                    <AnimateSharedLayout>
-                        <HelpCard>
-                            <Heading as={motion.h2} layout letterSpacing={'1px'} fontSize={[17, 20, 25]}>Jak dodać ocenę z <Char> ' + '</Char> lub <Char>' - '</Char> ?</Heading>
-                            <Text as={motion.p} layout m={[0.5, 1, 2]}>3+ to jest 3.50, a 3- to 2.75. Czyli dwa z plusem to 2.50, a z minusem 1.75</Text>
-                        </HelpCard>
+                    <HelpCard>
+                        {!isWeightsVisible ? (
 
-                        <WeightsCard onSubmit={handleWeightsSubmit} />
+                            <Flex mt={5} display={'block'} w={'100%'} as={motion.div} layout rounded='md'
+                                justifyContent={'space-between'} alignItems='end'>
+                                <Text>Podaj swoje wagi, które masz w szkole. Każda szkoła ma inne. Wpisz je po pojedynczo, a każdą oddziel przecinkiem.</Text>
+                                <form onSubmit={handleWeightsSubmit} noValidate>
+                                    <Flex mt={5} flexDir={'row'}>
+                                        <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
+                                        <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
+                                    </Flex>
+                                </form>
+                            </Flex>
+                        ) : (
+                            <>
+                                <Button as={motion.button} _hover={{ bg: 'rgba(129, 230, 217, 0.1)' }} fontSize={'lg'} onClick={onToggle} color={tealColor} fontWeight='normal' bg={'transparent'}>Zmień wagi
+                                    {/* TODO: repair rotate in this icon */}
+                                    <ChevronDownIcon ml={1} rotate={isOpen ? 270 : 0} transitionProperty={'transform'} transitionDuration={'.2s'} transition="ease-in-out" transform='auto' />
+                                </Button>
+                                <Collapse in={isOpen} animateOpacity>
+                                    <Box as={motion.div} layout>
+                                        <form onSubmit={handleWeightsSubmit} noValidate>
+                                            <Flex mt={5} flexDir={'row'} as={motion.div} layout>
+                                                <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
+                                                <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
+                                            </Flex>
+                                        </form>
+                                    </Box>
+                                </Collapse>
+                            </>
+                        )}
+                    </HelpCard>
+                    <AnimateSharedLayout>
 
                         {Object.keys(grades).map((weight) =>
                             <GradesCard
@@ -226,23 +248,7 @@ function Wazona() {
                             />
                         )}
 
-                        <WrapItem display={'block'} w={wrapW} as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
-                            justifyContent={'space-between'} alignItems='end'>
-                            <Text as={motion.p} layout fontSize={'13px'}>Średnia Twoich ocen: </Text>
-                            <Heading as={motion.h2} layout textAlign={'center'} ><chakra.span transition={'0.5s'} as={'output'} fontSize='72px'
-                                color={!average ? tealColor : averageColor}>
-                                {average ? average.toFixed(2) : "???"}</chakra.span></Heading>
-
-                            <AnimatePresence>
-                                {isVisible && (
-                                    <Flex as={motion.div} layout m='auto' exit={{ opacity: 0, y: 5 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.2 }} mt='auto'>
-                                        <Button w='75%' mx={'auto'} _focus={'none'} onClick={handleGradesReset} bg='transparent' fontWeight={'normal'} _hover={{ bg: 'rgba(252, 129, 129,0.15)' }}>
-                                            <Text color={'red.400'}>Resetuj</Text></Button>
-                                    </Flex>
-                                )}
-                            </AnimatePresence>
-                        </WrapItem>
+                        <AverageItem isVisible={isVisible} average={average} wrapW={wrapW} bg={bg} tealColor={tealColor} handleGradesReset={handleGradesReset} averageColor={averageColor} />
                     </AnimateSharedLayout>
                 </Wrap>
             </Flex>

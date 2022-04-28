@@ -1,13 +1,13 @@
-import Start from "../components/inside/Start"
 import Head from 'next/head'
+import Regulamin from '../components/inside/Regulamin'
 
 function Index() {
   return (
     <>
       <Head>
-        <title>Start | Zdaje.com</title>
+        <title>Regulamin | Zdaje.com</title>
       </Head>
-      <Start />
+      <Regulamin />
     </>
   )
 }

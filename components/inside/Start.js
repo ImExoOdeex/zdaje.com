@@ -3,6 +3,7 @@ import { Flex, Heading, Text, useColorModeValue, UnorderedList, ListItem } from 
 import React from 'react'
 import Link from '../Link'
 import { motion } from 'framer-motion'
+import { AdsUpBox } from './ads/AdsBoxes';
 
 function Li({ children, href, ...props }) {
     const tealColor = useColorModeValue('teal.600', 'teal.200');
@@ -16,23 +17,21 @@ function Li({ children, href, ...props }) {
 function Start() {
     const tealColor = useColorModeValue('teal.600', 'teal.200');
     return (
-        <Flex border={'0px solid'} borderColor='pink.200' boxShadow={'md'} flexDir={'column'} h='auto' m={{ base: 2, md: 10 }} p={{ base: 2, md: 5 }} rounded={'md'}>
-            <Heading as={'h1'}>Sprawdź czy zdajesz 🤔</Heading>
-            <Text py={2} >Tutaj możesz obliczyć swoją średnią i sprawdzić czy będziesz się stresował poprawką.
-                W większości szkół średnia powyżej 1.75 oznacza dobrą drogę, jednak to czy przejdziesz zależy od wyboru nauczyciela.
-                Jeśli jesteś w podstawówce zapewne masz średnią arytmetyczną (zwykłą), natomiast jeśli jesteś w szkole średniej to masz
-                średnią ważoną. W ważonej każda ocena ma swoją wagę czyli jak dostaniesz ocene niedostateczną z sprawdzianiu np. 2+ to
-                twoja prawdziwa ocena to jest <b>2.50</b> * waga podana przez nauczyciela np.: 4 przez ilość ocen czyli 1 razy waga tej oceny, czyli
-                <b> 2.50 * 4 / 1 * 4</b>, czyli 10 / 4 to twoja średnia jest 2.50. </Text>
-            <Heading>Jaką masz średnią?</Heading>
-            <UnorderedList listStyleType={'none'} display='inline-flex' m={'auto'}>
-                <Li mr='4' href={'wazona'}><SmallAddIcon />Ważona</Li>
-                <Li href={'zwykla'}><SmallAddIcon />Arytmetyczna</Li>
-            </UnorderedList>
-            <Heading mt='5'>Jak obliczyć średnią bez kalkulatora?</Heading>
-            <Text>Jeśli chcesz obliczać swoją średnią nie mając dostępu do internetu zapoznaj się z naszym <Link href={'jak'} variant={'link'} color={tealColor}>poradnikiem</Link>.</Text>
-
-        </Flex>
+        <>
+            <AdsUpBox h={['20px', '20px', '100px']} />
+            <Flex border={'0px solid'} borderColor='pink.200' boxShadow={'md'} flexDir={'column'} h='auto' m={{ base: 2, md: 10 }} my={0} p={{ base: 2, md: 5 }} py={0} rounded={'md'}>
+                <Heading as={'h1'}>Sprawdź czy zdajesz 🤔</Heading>
+                <Text p={5} py={2}>To narzędzie pozwala na policzenie swojej średniej <Link variant='link' href={'zwykla'}>zwykłej</Link> lub <Link variant='link' href={'wazona'}>ważonej</Link>
+                    . Jeślij w twojej szkole twoje oceny mają wagi to jest średnia ważona. W przeciwnym wypadku oblicz swoją średnią arytmetyczną (zwykłą).</Text>
+                <Heading>Jaką masz średnią?</Heading>
+                <UnorderedList listStyleType={'none'} display='inline-flex' m={'auto'}>
+                    <Li mr='4' href={'wazona'}><SmallAddIcon />Ważona</Li>
+                    <Li href={'zwykla'}><SmallAddIcon />Arytmetyczna</Li>
+                </UnorderedList>
+                <Heading mt='5'>Jak obliczyć średnią bez kalkulatora?</Heading>
+                <Text>Jeśli chcesz obliczać swoją średnią nie mając dostępu do internetu zapoznaj się z naszym <Link href={'jak'} variant={'link'} color={tealColor}>poradnikiem</Link>.</Text>
+            </Flex>
+        </>
     )
 }
 
