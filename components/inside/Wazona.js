@@ -108,12 +108,77 @@ function useSavedWeights() {
     return [weights, setNewWeights];
 }
 
+function WeightsItem(props) {
+
+    function handleWeightsSubmit(event) {
+        event.preventDefault();
+        const input = event.target.children[0].children[0];
+        const value = input.value;
+        input.value = '';
+        let weights = value.split(',');
+        weights = weights.map((weight) => weight.trim());
+        weights = weights.filter((weight) => weight && !isNaN(weight));
+        weights = weights.map((weight) => Number(weight));
+
+        if (weights.length === 0) {
+            toast({
+                position: 'top',
+                variant: 'solid',
+                title: 'Błąd',
+                description: "Podaj poprawne wagi",
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+            })
+            return;
+        }
+        props.onSubmit(weights);
+    }
+    const { isOpen, onToggle } = useDisclosure()
+    const tealColor = useColorModeValue('teal.600', 'teal.200');
+    const toast = useToast()
+
+    return (
+        <>
+            {!props.isWeightsVisible ? (
+
+                <Flex mt={5} display={'block'} w={'100%'} as={motion.div} layout rounded='md'
+                    justifyContent={'space-between'} alignItems='end'>
+                    <Text>Podaj swoje wagi, które masz w szkole. Każda szkoła ma inne. Wpisz je po pojedynczo, a każdą oddziel przecinkiem.</Text>
+                    <form onSubmit={handleWeightsSubmit} noValidate>
+                        <Flex mt={5} flexDir={'row'}>
+                            <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
+                            <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
+                        </Flex>
+                    </form>
+                </Flex>
+            ) : (
+                <>
+                    <Button as={motion.button} _hover={{ bg: 'rgba(129, 230, 217, 0.1)' }} fontSize={'lg'} onClick={onToggle} color={tealColor} fontWeight='normal' bg={'transparent'}>Zmień wagi
+                        {/* TODO: repair rotate in this icon */}
+                        <ChevronDownIcon ml={1} rotate={isOpen ? 270 : 0} transitionProperty={'transform'} transitionDuration={'.2s'} transition="ease-in-out" transform='auto' />
+                    </Button>
+                    <Collapse in={isOpen} animateOpacity>
+                        <Box as={motion.div} layout>
+                            <form onSubmit={handleWeightsSubmit} noValidate>
+                                <Flex mt={5} flexDir={'row'} as={motion.div} layout>
+                                    <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
+                                    <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
+                                </Flex>
+                            </form>
+                        </Box>
+                    </Collapse>
+                </>
+            )}
+        </>
+    )
+}
+
 
 function Wazona() {
     const wrapW = ['100%', 'calc(50% - 20px)', 'calc(50% - 48px)', 'calc(50% - 48px)', 'calc(33.333% - 48px)'];
     const bg = useColorModeValue('blackAlpha.50', 'whiteAlpha.50');
     const tealColor = useColorModeValue('teal.600', 'teal.200');
-    const toast = useToast()
 
     const [grades, setGrades] = useState({});
     const [gradeKey, setGradeKey] = useState(0);
@@ -138,6 +203,7 @@ function Wazona() {
     useEffect(() => {
         let numerator = 0;
         let denominator = 0;
+
         for (let i = 0; i < Object.keys(grades).length; i++) {
             const weight = weights[i];
             const weightGrades = grades[weight];
@@ -170,33 +236,13 @@ function Wazona() {
         setGrades(newGrades);
         setAverage(null);
     }
-    function handleWeightsSubmit(event) {
-        event.preventDefault();
-        const input = event.target.children[0].children[0];
-        const value = input.value;
-        input.value = '';
-        let weights = value.split(',');
-        weights = weights.map((weight) => weight.trim());
-        weights = weights.filter((weight) => weight && !isNaN(weight));
-        weights = weights.map((weight) => Number(weight));
 
-        if (weights.length === 0) {
-            toast({
-                position: 'top',
-                variant: 'solid',
-                title: 'Błąd',
-                description: "Podaj poprawne wagi",
-                status: 'error',
-                duration: 2000,
-                isClosable: true,
-            })
-            return;
-        }
+    function handleWeightsSubmit(weights) {
         setWeights(weights);
     }
+
     const [isVisible, setVisible] = useState(false);
     const averageColor = average >= 1.75 ? 'green.500' : 'red.500';
-    const { isOpen, onToggle } = useDisclosure()
     return (
         <>
             <Flex w='100%' mx={'auto'} px='5' h='auto' flexDir={'column'} mb={20}>
@@ -204,36 +250,9 @@ function Wazona() {
                 </AdsUpBox>
                 <Wrap spacing={[5, 5, 12]} as={motion.div} >
                     <HelpCard>
-                        {!isWeightsVisible ? (
-
-                            <Flex mt={5} display={'block'} w={'100%'} as={motion.div} layout rounded='md'
-                                justifyContent={'space-between'} alignItems='end'>
-                                <Text>Podaj swoje wagi, które masz w szkole. Każda szkoła ma inne. Wpisz je po pojedynczo, a każdą oddziel przecinkiem.</Text>
-                                <form onSubmit={handleWeightsSubmit} noValidate>
-                                    <Flex mt={5} flexDir={'row'}>
-                                        <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
-                                        <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
-                                    </Flex>
-                                </form>
-                            </Flex>
-                        ) : (
-                            <>
-                                <Button as={motion.button} _hover={{ bg: 'rgba(129, 230, 217, 0.1)' }} fontSize={'lg'} onClick={onToggle} color={tealColor} fontWeight='normal' bg={'transparent'}>Zmień wagi
-                                    {/* TODO: repair rotate in this icon */}
-                                    <ChevronDownIcon ml={1} rotate={isOpen ? 270 : 0} transitionProperty={'transform'} transitionDuration={'.2s'} transition="ease-in-out" transform='auto' />
-                                </Button>
-                                <Collapse in={isOpen} animateOpacity>
-                                    <Box as={motion.div} layout>
-                                        <form onSubmit={handleWeightsSubmit} noValidate>
-                                            <Flex mt={5} flexDir={'row'} as={motion.div} layout>
-                                                <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
-                                                <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
-                                            </Flex>
-                                        </form>
-                                    </Box>
-                                </Collapse>
-                            </>
-                        )}
+                        <Heading as={motion.h2} fontSize={[17, 20, 25]} layout>Średnia ważona</Heading>
+                        <Text>Każda ocena ma inną wartość.</Text>
+                        <WeightsItem isWeightsVisible={isWeightsVisible} onSubmit={handleWeightsSubmit} />
                     </HelpCard>
                     <AnimateSharedLayout>
 
@@ -252,7 +271,7 @@ function Wazona() {
                     </AnimateSharedLayout>
                 </Wrap>
             </Flex>
-            <PhoneBottom srednia={average ? average.toFixed(2) : "???"} gradesLenght={grades.length} />
+            <PhoneBottom average={average ? average.toFixed(2) : "???"} gradesLenght={grades.length} />
         </>
     )
 }

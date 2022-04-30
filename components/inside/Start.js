@@ -21,7 +21,7 @@ function Start() {
             <AdsUpBox h={['20px', '20px', '100px']} />
             <Flex border={'0px solid'} borderColor='pink.200' boxShadow={'md'} flexDir={'column'} h='auto' m={{ base: 2, md: 10 }} my={0} p={{ base: 2, md: 5 }} py={0} rounded={'md'}>
                 <Heading as={'h1'}>Sprawdź czy zdajesz 🤔</Heading>
-                <Text p={5} py={2}>To narzędzie pozwala na policzenie swojej średniej <Link variant='link' href={'zwykla'}>zwykłej</Link> lub <Link variant='link' href={'wazona'}>ważonej</Link>
+                <Text p={[0, 0, 5]} py={2}>To narzędzie pozwala na policzenie swojej średniej <Link variant='link' href={'zwykla'}>zwykłej</Link> lub <Link variant='link' href={'wazona'}>ważonej</Link>
                     . Jeślij w twojej szkole twoje oceny mają wagi to jest średnia ważona. W przeciwnym wypadku oblicz swoją średnią arytmetyczną (zwykłą).</Text>
                 <Heading>Jaką masz średnią?</Heading>
                 <UnorderedList listStyleType={'none'} display='inline-flex' m={'auto'}>

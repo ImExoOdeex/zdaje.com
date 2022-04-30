@@ -15,7 +15,6 @@ function Zwykla() {
     const toast = useToast()
 
     function addGrade(e) {
-        // subtle, solid
         e.preventDefault();
 
         if (!newGrade) {
@@ -85,6 +84,8 @@ function Zwykla() {
                 <Wrap spacing={[5, 5, 12]} as={motion.div}>
                     <AnimateSharedLayout>
                         <HelpCard>
+                            <Heading as={motion.h2} fontSize={[17, 20, 25]} layout>Średnia arytmetyczna (zwykła)</Heading>
+                            <Text m={[0.5, 1, 2]}>Każda ocena ma taką samą wartość.</Text>
                         </HelpCard>
                         <WrapItem display={'block'} w={wrapW} as={motion.div} layout boxShadow={'md'} bg={bg} p={5} rounded='md' border={'0px solid'} borderColor={tealColor}
                             justifyContent={'space-around'} alignItems='center' flexDir={'column'}>
@@ -139,7 +140,7 @@ function Zwykla() {
                     </AnimateSharedLayout>
                 </Wrap>
             </Flex>
-            <PhoneBottom srednia={average ? average.toFixed(2) : "???"} gradesLenght={grades.length} />
+            <PhoneBottom average={average ? average.toFixed(2) : "???"} gradesLenght={grades.length} />
         </>
     )
 }

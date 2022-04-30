@@ -18,16 +18,16 @@ function s404() {
                 <Heading>404 | Nie ma takiego linku</Heading>
                 <Text mt='5px' fontWeight={'normal'}>Taka strona nie istnieje 😢</Text>
                 <Flex transition={'.1s'} as={motion.a} dragConstraints={{
-                    top: -1000,
+                    top: -500,
                     left: -1000,
                     right: 1000,
-                    bottom: 1000,
+                    bottom: 500,
                 }} whileDrag={handleDrag}
                     onClick={() => router.back()}
                     drag mt='10px' cursor={'pointer'} _hover={{ bg: 'rgba(102, 237, 255, 0.1)' }}
                     color={tealColor} py={5} px={7} rounded='md' alignItems={'center'} _focus={'none'}>
                     <Text as={motion.p} layout >
-                        <chakra.span _hover={{ borderBottom: '2px solid', borderColor: '#ff63c3' }}> Powrót do strony głównej </chakra.span>
+                        <chakra.span _hover={{ borderBottom: '2px solid', borderColor: '#ff63c3' }}> Powróć do ostatniego linku </chakra.span>
                     </Text>
                 </Flex>
                 <motion.svg style={{ width: '25px', position: 'absolute', marginTop: '130px', marginRight: '200px' }}

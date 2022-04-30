@@ -35,7 +35,7 @@ export function HelpCard({ children, ...props }) {
         <WrapItem as={motion.div} layout w='100%' display={'block'} boxShadow={'md'} bg={bg} p={5} rounded='md' justifyContent={'space-around'} alignItems='center' {...props}>
             <Heading as={motion.h2} layout letterSpacing={'1px'} fontSize={[17, 20, 25]}>Jak dodać ocenę z <Char> ' + '</Char> lub <Char>' - '</Char> ?</Heading>
             <Text as={motion.p} layout m={[0.5, 1, 2]}>Jeśli twoja ocena cząstkowa posiada minusa to odejmi od niej 0.25, a jeślij posiada plusa to
-                dodaj do niej 0.5. Na przykład ocena 3+ to 3.50, a 3- to 2.75. </Text>
+                dodaj do niej 0.5. Na przykład ocena 3+ to 3.50, a 3- to 2.75. W twojej szkole może być to inaczej, ale w więkoszości jest tak jak powyżej.</Text>
             {children}
         </WrapItem>
     )
