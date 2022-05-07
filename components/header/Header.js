@@ -22,7 +22,7 @@ function Header() {
         <Flex as={'header'} h={'60px'} bg='transparent' w='100%'>
             <Flex as={'nav'} m={'auto'} w='1300px' bg={'tansparent'} h='100%' justifyContent={'space-between'}>
                 <Flex alignItems={'center'} ml={{ base: '20px', md: '40px' }} flexDir='row'><Heading>
-                    <Link _hover={{ borderBottom: '2px solid', borderColor: tealColor }} href={'/'} display='inline-flex'>Zdaje <chakra.span letterSpacing={'0px'} color={tealColor}>.com</chakra.span>
+                    <Link href={'/'} display='inline-flex'>Zdaje <chakra.span letterSpacing={'0px'} color={tealColor}>.com</chakra.span>
                         {/* <Flex ml={1} flexDir={'column'} justifyContent={'center'} textAlign={'left'}>
                             <Text fontWeight={'normal'} fontSize={{ base: '12px', md: '14px' }} color={tealColor} justifyContent={'flex-start'} textAlign={'left'}>Taaak!</Text>
                             <Text fontWeight={'normal'} fontSize={{ base: '12px', md: '14px' }} color={tealColor} justifyContent={'flex-start'} textAlign={'left'}>Zdajesz!</Text>

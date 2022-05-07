@@ -16,6 +16,8 @@ function Zwykla() {
 
     function addGrade(e) {
         e.preventDefault();
+        const field = e.target.children[0].children[0];
+        field.focus();
 
         if (!newGrade) {
             toast({
@@ -111,7 +113,6 @@ function Zwykla() {
                             </Text></Flex>
 
                             <form noValidate onSubmit={addGrade}>
-                                <Box h={'100%'} rounded='sm' w='4px' bg={'teal.200'}></Box>
                                 <Flex as={motion.div} layout flexDir={'column'}>
                                     <FormLabel for='ocena' fontSize={'12px'} mb='0'>Dodaj ocenę: </FormLabel>
                                     <Flex flexDir={'row'}>

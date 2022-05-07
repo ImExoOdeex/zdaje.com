@@ -25,8 +25,8 @@ function Start() {
                     . Jeślij w twojej szkole twoje oceny mają wagi to jest średnia ważona. W przeciwnym wypadku oblicz swoją średnią arytmetyczną (zwykłą).</Text>
                 <Heading>Jaką masz średnią?</Heading>
                 <UnorderedList listStyleType={'none'} display='inline-flex' m={'auto'}>
-                    <Li mr='4' href={'wazona'}><SmallAddIcon />Ważona</Li>
-                    <Li href={'zwykla'}><SmallAddIcon />Arytmetyczna</Li>
+                    <Li mr='4' href={'zwykla'}><SmallAddIcon />Arytmetyczna</Li>
+                    <Li href={'wazona'}><SmallAddIcon />Ważona</Li>
                 </UnorderedList>
                 <Heading mt='5'>Jak obliczyć średnią bez kalkulatora?</Heading>
                 <Text>Jeśli chcesz obliczać swoją średnią nie mając dostępu do internetu zapoznaj się z naszym <Link href={'jak'} variant={'link'} color={tealColor}>poradnikiem</Link>.</Text>

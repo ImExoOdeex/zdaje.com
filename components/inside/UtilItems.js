@@ -10,7 +10,6 @@ export function AverageItem({ isVisible, average, wrapW, bg, tealColor, handleGr
             <Heading as={motion.h2} layout textAlign={'center'} ><chakra.span transition={'0.5s'} as={'output'} fontSize='72px'
                 color={!average ? tealColor : averageColor}>
                 {average ? average.toFixed(2) : "???"}</chakra.span></Heading>
-
             <AnimatePresence>
                 {isVisible && (
                     <Flex as={motion.div} layout m='auto' exit={{ opacity: 0, y: 5 }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}

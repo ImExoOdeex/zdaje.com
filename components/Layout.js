@@ -5,6 +5,7 @@ import Header from './header/Header'
 import { AnimateSharedLayout } from 'framer-motion'
 import { SkipNavContent } from '@chakra-ui/skip-nav'
 import { AdsSide } from './inside/ads/AdsBoxes'
+import CookieConsent from './inside/CookieConsent'
 
 
 const w = '0px'
@@ -33,6 +34,7 @@ function Layout({ children }) {
                     </Flex>
                     <Side />
                 </Flex>
+                <CookieConsent />
                 <Footer />
             </AnimateSharedLayout>
         </Flex>
