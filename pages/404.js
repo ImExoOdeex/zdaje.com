@@ -22,7 +22,7 @@ function s404() {
                     left: -1000,
                     right: 1000,
                     bottom: 500,
-                }} whileDrag={handleDrag}
+                }} dragTransition={{ bounceStiffness: 300, power: 20 }} whileDrag={handleDrag}
                     onClick={() => router.back()}
                     drag mt='10px' cursor={'pointer'} _hover={{ bg: 'rgba(102, 237, 255, 0.1)' }}
                     color={tealColor} py={5} px={7} rounded='md' alignItems={'center'} _focus={'none'}>

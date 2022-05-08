@@ -9,7 +9,7 @@ export default class Document extends NextDocument {
                 <link rel="icon" href="logozdajecom128.png" sizes='128x128' type='image/png' />
                 <link rel="icon" href="logozdajecom32.png" sizes='32x32' type='image/png' />
                 <meta name="keywords"
-                    content="kalkulator średniej, kalkulator średniej zwykłej, kalkulator średniej arytmetycznej, kalkulator średniej ważonej, średnia, srednia, średnia szkolna,
+                    content="kalkulator średniej, kalkulator średniej zwykłej, kalkulator średniej arytmetycznej, oblicz średnią, obliczator średniej, jaka jest moja średnia, kalkulator średniej ważonej, średnia, srednia, średnia szkolna,
                     szkoła, zdaje, zdaje.com, czy zdaje?, kalkulator średniej szkolnej" />
                 <meta name="theme-color" content="#171923"></meta>
                 <meta name="robots" content="follow" />

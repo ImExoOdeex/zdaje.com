@@ -61,7 +61,7 @@ function GradesCard(props) {
                     return (
                         <>
                             <Tooltip key={item.key} hasArrow label={"usuń: " + item.grade}>
-                                <Box borderTop='2px solid' borderColor={colors.at(item.grade)} as={motion.span} initial={{ opacity: 0 }} exit={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.1 } }}
+                                <Box borderTop='2px solid' borderColor={colors.at(item.grade)} as={motion.span} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { duration: 0.1 } }}
                                     whileHover={{ opacity: 0.8 }} whileTap={() => props.onDelete(item.key)} cursor='pointer'>
                                     {item.grade}
                                 </Box>
