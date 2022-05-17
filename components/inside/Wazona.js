@@ -19,15 +19,15 @@ function GradesCard(props) {
         event.preventDefault();
         const field = event.target.children[0].children[0];
         const value = field.value;
-        field.value = "";
         field.focus();
+        field.value = "";
 
         if (!value) {
             toast({
                 position: 'top',
                 variant: 'solid',
-                title: 'Błąd',
-                description: "Podaj poprawną ocenę",
+                title: 'Podaj poprawną ocenę',
+                description: "Sprawdź jak poprawnie wpisać ocenę",
                 status: 'warning',
                 duration: 2000,
                 isClosable: true,
@@ -127,7 +127,7 @@ function WeightsItem(props) {
                     <Text>Podaj swoje wagi, które masz w szkole. Każda szkoła ma inne. Wpisz je po pojedynczo, a każdą oddziel przecinkiem.</Text>
                     <form onSubmit={handleWeightsSubmit} noValidate>
                         <Flex mt={5} flexDir={'row'}>
-                            <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
+                            <Input w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3, 4, 5..." autoComplete="off" />
                             <Button type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
                         </Flex>
                     </form>
@@ -136,7 +136,7 @@ function WeightsItem(props) {
                 <>
                     <ChakraButton alignItems={'center'} rounded={'md'} layout _hover={{ bg: 'rgba(129, 230, 217, 0.1)' }} fontSize={'lg'} px={5} py={2}
                         onTap={toggleOpen} color={tealColor} fontWeight='normal' bg={'transparent'} flexDir='row' display={'flex'}>
-                        <Text ml={1}>Zmień wagi</Text>
+                        <Text color={tealColor} ml={1}>Zmień wagi</Text>
                         <ChevronDownIcon ml={1} rotate={isWeightsOpen ? 270 : 0} transitionProperty={'transform'} transitionDuration={'.2s'} transition="ease-in-out" transform='auto' />
                     </ChakraButton>
                     <AnimatePresence>
@@ -146,14 +146,15 @@ function WeightsItem(props) {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}>
                                 <form onSubmit={handleWeightsSubmit} noValidate>
-                                    <Flex mt={5} flexDir={'row'} as={motion.div} layout>
-                                        <Input as={motion.input} layout w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3..." autoComplete="off" />
+                                    <Flex mt={5} mb={5} flexDir={'row'} as={motion.div} layout>
+                                        <Input as={motion.input} layout w={['100%', '75%', '30%']} type="text" name="weights" placeholder="1, 2, 3, 4, 5..." autoComplete="off" />
                                         <Button as={motion.button} layout type="submit" ml={5} fontWeight='normal' rounded={'md'} bg='transparent' _hover={{ bg: 'rgba(246, 135, 179,0.75)' }}>Zatwierdź</Button>
                                     </Flex>
                                 </form>
                             </Box>
                         )}
                     </AnimatePresence>
+                    <Text as={motion.p} layout>Aby usunąć ocenę, po prostu na nią kliknij</Text>
                 </>
             )}
         </Box>

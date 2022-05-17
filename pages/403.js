@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { AdsUpBox } from '../components/inside/ads/AdsBoxes';
 
-function s404() {
+function s403() {
     const tealColor = useColorModeValue('teal.600', 'teal.200');
     const [drag, setDrag] = useState('drag this!!!')
     function handleDrag() {
@@ -15,8 +15,8 @@ function s404() {
         <>
             <AdsUpBox />
             <Flex h='auto' flexDir={'column'} alignItems='center' >
-                <Heading>404 | Nie ma takiego linku</Heading>
-                <Text mt='5px' fontWeight={'normal'}>Taka strona nie istnieje 😢</Text>
+                <Heading>403 | FORBIDDEN</Heading>
+                <Text mt='5px' fontWeight={'normal'}>Nie masz dostępu do tej strony 😢</Text>
                 <Flex transition={'.1s'} as={motion.a} dragConstraints={{
                     top: -500,
                     left: -1000,
@@ -39,4 +39,4 @@ function s404() {
     )
 }
 
-export default s404
+export default s403

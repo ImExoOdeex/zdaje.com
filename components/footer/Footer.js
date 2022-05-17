@@ -3,12 +3,15 @@ import React from 'react'
 import Link from '../Link'
 import { motion, isValidMotionProp, useMotionValue } from 'framer-motion'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { useRouter } from 'next/router'
 
 function Li({ children, href, ...props }) {
     const tealColor = useColorModeValue('teal.600', 'teal.200');
     return (
         <ListItem p='2' rounded={'md'} _hover={{ bg: 'rgba(102, 237, 255, 0.1)' }} transition='0.1s'>
-            <Link href={href} _hover={{ borderBottom: '2px solid', borderColor: '#ff63c3' }} color={tealColor} {...props}>{children}</Link></ListItem>
+            <Link href={href} _hover={{ borderBottom: '2px solid', borderColor: '#ff63c3' }} color={tealColor} {...props}>{children}
+            </Link>
+        </ListItem>
     )
 }
 
@@ -21,10 +24,10 @@ function Footer() {
     const divider = useColorModeValue('blackAlpha.800', 'whiteAlpha.600')
     const button = useColorModeValue('blackAlpha.50', 'whiteAlpha.50')
     const gitBg = useColorModeValue('#9494e0', '#6e5494')
+    const router = useRouter()
 
     return (
-        // if u want footer to be layouted set layout={true}
-        <Flex as={motion.footer} layout={false} w='100%' h={'auto'} minH='200px' mt='auto'>
+        <Flex as={motion.footer} layout={router.pathname == "/wazona" ? true : false} w='100%' h={'auto'} minH='200px' mt='auto'>
             <Flex m={'auto'} w={'1000px'}>
                 <SimpleGrid w={'100%'} h={'100%'} minChildWidth='200px' spacingX='40px' mb={{ base: '70px', sm: '0px' }} >
                     <Box w={{ base: '', sm: '100%' }} m={{ base: 4, md: 8 }} flexDir='column'>
@@ -39,8 +42,8 @@ function Footer() {
                             <Flex>
                                 <UnorderedList listStyleType={'none'} fontFamily="Baloo" spacing={{ base: '2px', md: '10px' }}>
                                     <ListItem ml={2} fontWeight={'bold'}>Legal</ListItem>
-                                    <Li href="regulamin">Polityka prywatności</Li>
-                                    <Li href="regulamin">Regulamin i warunki</Li>
+                                    <Li href="/regulamin#regulamin_i_warunki">Regulamin i warunki</Li>
+                                    <Li href="/regulamin#polityka_prywatnosci">Polityka prywatności</Li>
                                 </UnorderedList>
                             </Flex>
                             <Flex display={{ base: 'none', md: 'flex' }}>

@@ -9,12 +9,8 @@ import { ArrowBackIcon } from '@chakra-ui/icons'
 
 function Header() {
     const { colorMode, toggleColorMode } = useColorMode();
-    const MotionButton = motion(chakra.button, {
-        shouldForwardProp: isValidMotionProp,
-    });
     const pathLength = useMotionValue(0)
     const tealColor = useColorModeValue('teal.600', 'teal.200');
-    const borderColor = useColorModeValue('black', 'white');
     const router = useRouter()
 
 
@@ -23,25 +19,21 @@ function Header() {
             <Flex as={'nav'} m={'auto'} w='1300px' bg={'tansparent'} h='100%' justifyContent={'space-between'}>
                 <Flex alignItems={'center'} ml={{ base: '20px', md: '40px' }} flexDir='row'><Heading>
                     <Link href={'/'} display='inline-flex'>Zdaje <chakra.span letterSpacing={'0px'} color={tealColor}>.com</chakra.span>
-                        {/* <Flex ml={1} flexDir={'column'} justifyContent={'center'} textAlign={'left'}>
-                            <Text fontWeight={'normal'} fontSize={{ base: '12px', md: '14px' }} color={tealColor} justifyContent={'flex-start'} textAlign={'left'}>Taaak!</Text>
-                            <Text fontWeight={'normal'} fontSize={{ base: '12px', md: '14px' }} color={tealColor} justifyContent={'flex-start'} textAlign={'left'}>Zdajesz!</Text>
-                        </Flex> */}
                     </Link></Heading></Flex>
                 <Flex alignItems={'center'} mr='40px' display={{ base: 'flex', sm: 'none' }}>
-                    {/* <IconButton onClick={() => router.back()} fontSize='20px' aria-label='Search database' icon={<ArrowBackIcon />} mr={2} _hover='none' bg='transparent' /> */}
                     <Link href={'/'}>
                         <AiOutlineHome size={'25px'} />
                     </Link>
                 </Flex>
                 <Flex alignItems={'center'} mr='40px' display={{ base: 'none', sm: 'flex' }}>
-                    <UnorderedList listStyleType={'none'} display='inline-flex'>
-                        <ListItem mr={'5'}><Link href={'/'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
+                    <UnorderedList fontWeight={'bold'} listStyleType={'none'} display='inline-flex'>
+                        <ListItem ><Link href={'/'} _hover={{ opacity: 0.5 }} borderColor={tealColor}
                             borderBottom={router.pathname == '/' ? "2px solid" : "0px solid"}>Start</Link></ListItem>
-                        <ListItem opacity={0.8}>Średnia: </ListItem>
-                        <ListItem ml={'20px'}><Link href={'zwykla'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
+                        <ListItem ml={'20px'}><Link href={'jak_obliczac'} _hover={{ opacity: 0.5 }} borderColor={tealColor}
+                            borderBottom={router.pathname == '/jak_obliczac' ? "2px solid" : "0px solid"}>Jak obliczać?</Link></ListItem>
+                        <ListItem ml={'20px'}><Link href={'zwykla'} _hover={{ opacity: 0.5 }} borderColor={tealColor}
                             borderBottom={router.pathname == '/zwykla' ? "2px solid" : "0px solid"}>Zwykła</Link></ListItem>
-                        <ListItem ml={'20px'}><Link href={'wazona'} _hover={{ borderBottom: '2px solid' }} borderColor={tealColor}
+                        <ListItem ml={'20px'}><Link href={'wazona'} _hover={{ opacity: 0.5 }} borderColor={tealColor}
                             borderBottom={router.pathname == '/wazona' ? "2px solid" : "0px solid"}>Ważona</Link></ListItem>
                     </UnorderedList>
                     <Button as={motion.button} whileHover={{ rotate: colorMode === "dark" ? 10 : -10, transition: { duration: 0.05 } }} p='2' px='3' rounded='md' ml={'10px'}

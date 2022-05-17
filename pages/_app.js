@@ -9,22 +9,23 @@ import "focus-visible/dist/focus-visible"
 import { SkipNavLink } from '@chakra-ui/skip-nav';
 import { InfoIcon, InfoOutlineIcon } from '@chakra-ui/icons';
 import { CookiesProvider } from 'react-cookie';
+import { Chakra } from '../components/Chakra';
 
-function App({ Component, pageProps, router }) {
+export default function App({ Component, pageProps, router }) {
   return (
-    <CookiesProvider>
-      <ChakraProvider theme={theme}>
+    <Chakra cookies={pageProps.cookies}>
+      <CookiesProvider>
         <Fonts />
         <SkipNavLink fontWeight={'normal'} id='main' alignItems={'center'} bg='transparent'><InfoOutlineIcon />  Skip to main content</SkipNavLink>
-        <Layout router={router}>
-          <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)} exitBeforeEnter initial={true}>
+        <AnimatePresence onExitComplete={() => window.scrollTo(0, 0)} exitBeforeEnter={true} initial>
+          <Layout router={router}>
             <Component {...pageProps} key={router.route} />
-          </AnimatePresence>
-          <CSSReset />
-        </Layout>
-      </ChakraProvider>
-    </CookiesProvider>
+            <CSSReset />
+          </Layout>
+        </AnimatePresence>
+      </CookiesProvider>
+    </Chakra>
   )
 }
 
-export default App
+export { getServerSideProps } from "../components/Chakra";
